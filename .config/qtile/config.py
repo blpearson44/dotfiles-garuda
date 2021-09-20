@@ -493,6 +493,27 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 # }}}
+# APP GROUP ASSIGNMENTS{{{
+@hook.subscribe.client_new
+def move_spawned_apps(client):
+    d = {}
+    d["1"] = []
+    d["2"] = ['Firefox', 'firefox', 'Navigator']
+    d["3"] = ['obsidian']
+    d["4"] = []
+    d["5"] = ['spotify', 'Spotify']
+    d["6"] = []
+    d["7"] = []
+    d["8"] = ['zoom']
+    d["9"] = []
+
+    wm_class = client.window.get_wm_class()[0]
+    for i in range(len(d)):
+        if wm_class in list(d.values())[i]:
+            group = list(d.keys())[i]
+            client.togroup(group)
+        
+# }}}
 # FLOATING APPS{{{
 floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'confirm'},
@@ -519,7 +540,7 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'Yad'},
     {'wmclass': 'ulauncher'},
     {'wmclass': 'Ulauncher'},
-
+    {'wmclass': 'zoom'}
 ],  fullscreen_border_width = 0, border_width = 0)# }}}
 auto_fullscreen = True
 
