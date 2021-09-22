@@ -29,6 +29,9 @@ end
 
 bass source ~/.nvm/nvm.sh
 
+# Set default editor to NVIM
+set -gx EDITOR nvim
+
 # Add depot_tools to PATH
 if test -d ~/Applications/depot_tools
     if not contains -- ~/Applications/depot_tools $PATH

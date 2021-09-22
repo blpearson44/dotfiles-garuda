@@ -245,6 +245,15 @@ def init_colors():
 
 colors = init_colors()
 
+# Widget Functions
+def replace_text(text):
+    for string in ["/home/ben"]:
+        text = text.replace(string, "")
+    for string in ["Firefox", "vim", "fish"]:
+        if string in text:
+            text = string
+    return text
+
 def init_widgets_list():
     widgets_list = [
             widget.Spacer(
@@ -269,13 +278,20 @@ def init_widgets_list():
                 margin = 5,
                 background = colors[1]
             ),
-            widget.Spacer(
-                length = 10,
-                background = colors[1]
-            ),
-            widget.Spacer(
-                length = bar.STRETCH,
-                background = colors[1]
+            widget.TaskList(
+                background = colors[1],
+                icon_size = 0,
+                font="Iosevka Nerd Font",
+                max_title_width = 400,
+                padding_x = 5,
+                borderwidth = 0,
+                markup_minimized = '<span foreground="#B07190">{}</span>',
+                markup_focused = '<span foreground="#5A8CE8">{}</span>',
+                # markup_focused = 
+                txt_minimized = "",
+                txt_maximized = "",
+                txt_floating = "",
+                parse_text = replace_text,
             ),
 
             # Center bar

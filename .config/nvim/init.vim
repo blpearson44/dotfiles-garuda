@@ -26,6 +26,9 @@ call plug#end()
 " Set leader to Space
 let mapleader = " "
 
+" Save as root
+cmap w!! %!sudo tee > /dev/null %
+
 " theme
 colorscheme dracula
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
