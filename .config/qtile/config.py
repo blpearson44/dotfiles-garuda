@@ -249,7 +249,7 @@ colors = init_colors()
 def replace_text(text):
     for string in ["/home/ben"]:
         text = text.replace(string, "")
-    for string in ["Firefox", "vim", "fish"]:
+    for string in ["Firefox", "vim", "fish", "Obsidian"]:
         if string in text:
             text = string
     return text
@@ -287,7 +287,6 @@ def init_widgets_list():
                 borderwidth = 0,
                 markup_minimized = '<span foreground="#B07190">{}</span>',
                 markup_focused = '<span foreground="#5A8CE8">{}</span>',
-                # markup_focused = 
                 txt_minimized = "",
                 txt_maximized = "",
                 txt_floating = "",
@@ -439,11 +438,20 @@ def init_widgets_list_secondary():
                 margin = 5,
                 background = colors[1]
             ),
-            widget.Spacer(
-                length = 10,
-                background = colors[1]
+            widget.TaskList(
+                background = colors[1],
+                icon_size = 0,
+                font="Iosevka Nerd Font",
+                max_title_width = 400,
+                padding_x = 5,
+                borderwidth = 0,
+                markup_minimized = '<span foreground="#B07190">{}</span>',
+                markup_focused = '<span foreground="#5A8CE8">{}</span>',
+                txt_minimized = "",
+                txt_maximized = "",
+                txt_floating = "",
+                parse_text = replace_text,
             ),
-            # Middle of Bar
             widget.TextBox(
                 font = "Iosevka Nerd Font",
                 fontsize = 30,
@@ -454,6 +462,10 @@ def init_widgets_list_secondary():
             widget.CurrentLayout(
                 foreground = colors[2],
                 background = colors[1] 
+            ),
+            widget.Spacer(
+                length = 700,
+                background = colors[1]
             ),
             widget.Spacer(
                 length = bar.STRETCH,
