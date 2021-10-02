@@ -13,7 +13,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
 " theme
 Plug 'dracula/vim'
-Plug 'tribela/vim-transparent'
+" Messes with Neovide
+" Plug 'tribela/vim-transparent'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ap/vim-css-color'
@@ -21,6 +22,8 @@ Plug 'luochen1990/rainbow'
 " toml syntax highlight
 Plug 'cespare/vim-toml'
 Plug 'gabrielelana/vim-markdown'
+" LaTeX
+Plug 'lervag/vimtex'
 call plug#end()
 
 " Set leader to Space
@@ -53,8 +56,17 @@ noremap <leader>6 6gt
 noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
-noremap <leader>w :tabclose<CR>
+noremap <leader>tc :tabclose<CR>
+" Splits
+noremap <leader>wc <C-W>q
+noremap <leader>wv <C-W>v
+noremap <leader>wr <C-W>r
+noremap <leader>wt <C-W>T
+noremap <leader>w= <C-W>=
 
+" error nav
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
+nmap <silent> e] <Plug>(coc-diagnostic-next)
 
 " coc config
 let g:coc_global_extensions = [
@@ -65,7 +77,8 @@ let g:coc_global_extensions = [
   \ 'coc-prettier', 
   \ 'coc-json', 
   \ 'coc-toml',
-  \ 'coc-python'
+  \ 'coc-python',
+  \ 'coc-texlab'
   \ ]
 
 
@@ -91,9 +104,29 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 " Open the existing NERDTree on each new tab.
 autocmd BufWinEnter * silent NERDTreeMirror
 
+" Startify
+let g:startify_bookmarks = ['~/.config/nvim/init.vim', '~/.config/fish/config.fish', '~/.config/qtile/config.py', '~/Projects/']
+let g:startify_session_dir = '~/.config/nvim/sessions'
+let g:startify_session_autload = 0
+let g:startify_session_persistence = 1
+let g:startify_lists =[
+      \ { 'type': 'bookmarks',  'header': ['  Bookmarks']   },
+      \ { 'type': 'sessions',   'header': ['  Sessions']    },
+      \ { 'type': 'dir',      'header': ['  MRU '.getcwd()] },
+      \ ] 
+
 " vim-airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tab_nr_type = 1
+
+
+" vimtex
+let g:vimtex_view_method = 'zathura'
+
+" Mouse
+set mouse=nicr
+set mouse=a
 
 " from .vimrc
 " line numbers
@@ -115,3 +148,13 @@ set hlsearch
 set incsearch
 
 set showmatch
+
+" Gvim
+set guifont=Fira\ Code
+let g:neovide_transparency=0.8
+" Neovide
+" Smooth Scrolling
+" let g:NEOVIDE_MULTIGRID=true
+" Transparency
+let g:neovide_transparency=0.8
+let g:neovide_refresh_rate=144

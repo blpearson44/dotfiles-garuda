@@ -50,15 +50,15 @@ keys = [
     Key([mod], "KP_Enter", lazy.spawn('alacritty')),
     Key([mod], "x", lazy.shutdown()),
     Key([mod], "space", lazy.spawn('ulauncher-toggle')),
+    Key([mod, "mod1"], "l", lazy.spawn('betterlockscreen -l')),
 
 # SUPER + SHIFT KEYS
 
-    Key([mod, "shift"], "Return", lazy.spawn('pcmanfm')),
+    Key([mod, "shift"], "Return", lazy.spawn('alacritty -e ranger')),
     Key([mod, ], "w", lazy.window.kill()),
     Key([mod, "shift"], "r", lazy.restart()),
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "shift"], "x", lazy.shutdown()),
-    Key([mod, "shift"], "l", lazy.spawn('i3lock')),
 
 # CONTROL + ALT KEYS
 
@@ -114,6 +114,20 @@ keys = [
     Key([mod], "j", lazy.layout.down()),
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "l", lazy.layout.right()),
+    # Toggle Screen
+    Key([mod], "period",
+        lazy.next_screen(),
+        ),
+
+# CHANGE STACK ORDER
+    Key([mod, "shift"], "j", 
+        lazy.layout.shuffle_down(),
+        lazy.layout.section_down(),
+        ),
+    Key([mod, "shift"], "k",
+        lazy.layout.shuffle_up(),
+        lazy.layout.section_up(),
+        ),
 
 
 # RESIZE UP, DOWN, LEFT, RIGHT
@@ -161,10 +175,7 @@ keys = [
         lazy.layout.shrink(),
         lazy.layout.increase_nmaster(),
         ),
-
-
-# TOGGLE FLOATING LAYOUT
-    Key([mod, "shift"], "space", lazy.window.toggle_floating()),]
+    ]
 
 groups = []
 
@@ -249,7 +260,7 @@ colors = init_colors()
 def replace_text(text):
     for string in ["/home/ben"]:
         text = text.replace(string, "")
-    for string in ["Firefox", "vim", "fish", "Obsidian"]:
+    for string in ["Firefox", "vim", "fish", "Obsidian", "pacman"]:
         if string in text:
             text = string
     return text
@@ -264,10 +275,10 @@ def init_widgets_list():
             # Left Side of the bar
             widget.GroupBox(
                 font = "Iosevka Nerd Font",
-                fontsize = 20,
+                fontsize = 25,
                 foreground = colors[2],
                 background = colors[1],
-                borderwidth = 8,
+                borderwidth = 15,
                 highlight_method = "text",
                 this_current_screen_border = colors[5],
                 active = colors[3],
@@ -282,6 +293,7 @@ def init_widgets_list():
                 background = colors[1],
                 icon_size = 0,
                 font="Iosevka Nerd Font",
+                fontsize=20,
                 max_title_width = 400,
                 padding_x = 5,
                 borderwidth = 0,
@@ -296,8 +308,8 @@ def init_widgets_list():
             # Center bar
             widget.TextBox(
                 font = "Iosevka Nerd Font",
-                fontsize = 30,
-                text = "",
+                fontsize = 25,
+                text = " ",
                 foreground = colors[5],
                 background = colors[1]
             ),
@@ -311,7 +323,7 @@ def init_widgets_list():
             ),
             widget.TextBox(
                 font = "Iosevka Nerd Font",
-                fontsize = 30,
+                fontsize = 25,
                 text = "﬙",
                 foreground = colors[6],
                 background = colors[1]
@@ -325,7 +337,7 @@ def init_widgets_list():
             ),
             widget.TextBox(
                 font = "Iosevka Nerd Font",
-                fontsize = 30,
+                fontsize = 25,
                 text = "",
                 foreground = colors[5],
                 background = colors[1]
@@ -344,8 +356,8 @@ def init_widgets_list():
             ),
             widget.TextBox(
                 font = "Iosevka Nerd Font",
-                fontsize = 30,
-                text = "",
+                fontsize = 25,
+                text = " ",
                 foreground = colors[8],
                 background = colors[1]
             ),
@@ -383,7 +395,7 @@ def init_widgets_list():
             widget.TextBox(
                 font = "Iosevka Nerd Font",
                 fontsize = 15,
-                text = "",
+                text = " ",
                 foreground = colors[7],
                 background = colors[1]
             ),
@@ -395,7 +407,7 @@ def init_widgets_list():
             widget.TextBox(
                 font = "Iosevka Nerd Font",
                 fontsize = 15,
-                text = "",
+                text = " ",
                 foreground = colors[7],
                 background = colors[1]
             ),
@@ -424,10 +436,10 @@ def init_widgets_list_secondary():
             # Left Side of the bar
             widget.GroupBox(
                 font = "Iosevka Nerd Font",
-                fontsize = 20,
+                fontsize = 25,
                 foreground = colors[2],
                 background = colors[1],
-                borderwidth = 8,
+                borderwidth = 15,
                 highlight_method = "text",
                 this_current_screen_border = colors[5],
                 active = colors[3],
@@ -442,6 +454,7 @@ def init_widgets_list_secondary():
                 background = colors[1],
                 icon_size = 0,
                 font="Iosevka Nerd Font",
+                fontsize=20,
                 max_title_width = 400,
                 padding_x = 5,
                 borderwidth = 0,
@@ -454,8 +467,8 @@ def init_widgets_list_secondary():
             ),
             widget.TextBox(
                 font = "Iosevka Nerd Font",
-                fontsize = 30,
-                text = "",
+                fontsize = 25,
+                text = " ",
                 foreground = colors[5],
                 background = colors[1]
             ),
@@ -464,13 +477,22 @@ def init_widgets_list_secondary():
                 background = colors[1] 
             ),
             widget.Spacer(
-                length = 700,
-                background = colors[1]
-            ),
-            widget.Spacer(
                 length = bar.STRETCH,
                 background = colors[1]
+            ),
+            widget.TextBox(
+                font = "Iosevka Nerd Font",
+                fontsize = 25,
+                text = "⏻ ",
+                foreground = colors[5],
+                background = colors[1],
+                mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('shutdown -h now')}
+            ),
+            widget.Spacer(
+                length = 10,
+                background = colors[1]
             )
+
             # Right side of Bar
         ]
     return widgets_list

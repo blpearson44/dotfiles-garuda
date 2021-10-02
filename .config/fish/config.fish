@@ -139,7 +139,7 @@ alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pac
 
 # Custom config aliases
 alias fix_display="xrandr --output DP-0 --primary --mode 2560x1440 --rate 144.0 --output HDMI-0  --mode 2560x1440 --rate 74.99 --left-of DP-0"
-alias vim="nvim"
+alias vim="neovide --multigrid"
 alias Spiderverse="cd ~/Spiderverse/"
 alias w="feh --randomize --bg-fill ~/Pictures/wallpapers/dark"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'

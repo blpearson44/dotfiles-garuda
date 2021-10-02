@@ -18,16 +18,16 @@ run nm-applet &
 run pamac-tray &
 numlockx on &
 blueman-applet &
-albert &
+# albert &
 #flameshot &
-#picom --config $HOME/.config/picom/picom.conf &
-picom --config .config/picom/picom-blur.conf --experimental-backends &
+picom --config $HOME/.config/picom/picom.conf &
+# picom --config .config/picom/picom-blur.conf --experimental-backends &
 #/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 dunst &
-feh --bg-fill ~/Pictures/wallpapers/dark/cuts-of-life.png ~/Pictures/wallpapers/dark/josie-iv--2560×1440.png
+feh --bg-fill ~/Pictures/wallpapers/dark/cuts-of-life.png ~/Pictures/wallpapers/dark/josie-iv--2560×1440.png &
 #starting user applications at boot time
 run volumeicon &
-run cbatticon &
+# run cbatticon &
 #run discord &
 #nitrogen --random --set-zoom-fill &
 #run caffeine -a &
