@@ -39,7 +39,6 @@ myTerm = "alacritty" # My terminal of choice
 
 keys = [
 # SUPER + FUNCTION KEYS
-
     Key([mod], "f", lazy.window.toggle_fullscreen()),
     Key([mod], "m", lazy.spawn('pragha')),
     Key([mod], "w", lazy.window.kill()),
@@ -53,7 +52,6 @@ keys = [
     Key([mod, "mod1"], "l", lazy.spawn('betterlockscreen -l')),
 
 # SUPER + SHIFT KEYS
-
     Key([mod, "shift"], "Return", lazy.spawn('alacritty -e ranger')),
     Key([mod, ], "w", lazy.window.kill()),
     Key([mod, "shift"], "r", lazy.restart()),
@@ -61,33 +59,24 @@ keys = [
     Key([mod, "shift"], "x", lazy.shutdown()),
 
 # CONTROL + ALT KEYS
-
-    Key(["mod1", "control"], "c", lazy.spawn('catfish')),
-    Key(["mod1", "control"], "i", lazy.spawn('nitrogen')),
-    Key(["mod1", "control"], "o", lazy.spawn(home + '/.config/qtile/scripts/picom-toggle.sh')),
     Key(["mod1", "control"], "u", lazy.spawn('pavucontrol')),
 
 # ALT + ... KEYS
-
-
     Key(["mod1"], "p", lazy.spawn('pamac-manager')),
     Key(["mod1"], "f", lazy.spawn('firefox')),
     Key(["mod1"], "m", lazy.spawn('pcmanfm')),
-
+    Key([mod], "n", lazy.spawn('neovide')),
+    Key([mod], "e", lazy.spawn('emacsclient -a "" -c')),
 
 # CONTROL + SHIFT KEYS
-
     Key([mod2, "shift"], "Escape", lazy.spawn('lxtask')),
 
 
 # SCREENSHOTS
-
     Key([], "Print", lazy.spawn('flameshot full -p ' + home + '/Pictures')),
     Key([mod2], "Print", lazy.spawn('flameshot full -p ' + home + '/Pictures')),
-#    Key([mod2, "shift"], "Print", lazy.spawn('gnome-screenshot -i')),
 
 # MULTIMEDIA KEYS
-
 # INCREASE/DECREASE BRIGHTNESS
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 5")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 5")),
@@ -103,7 +92,7 @@ keys = [
     Key([], "XF86AudioStop", lazy.spawn("playerctl stop")),
 
 # QTILE LAYOUT KEYS
-    Key([mod], "n", lazy.layout.normalize()),
+    Key([mod, "shift"], "n", lazy.layout.normalize()),
 
 # CHANGE FOCUS
     Key([mod], "Up", lazy.layout.up()),
@@ -212,10 +201,11 @@ for i in groups:
 # LAYOUTS {{{
 
 def init_layout_theme():
-    return {"margin":16,
-            "single_margin":16,
-            "border_width":0,
-            "border_normal": "#000000",
+    return {"margin": 8,
+            "margin_on_single": 0,
+            "border_width":2,
+            "border_focus": "e1acff",
+            "border_normal": "1D2330"
             }
 
 layout_theme = init_layout_theme()
@@ -223,7 +213,7 @@ layout_theme = init_layout_theme()
 
 layouts = [
     layout.Floating(**layout_theme),
-    layout.Max(**layout_theme),
+    layout.Max(),
     layout.Columns(**layout_theme),
     layout.Tile(**layout_theme),
     layout.MonadTall(**layout_theme),
@@ -499,8 +489,8 @@ def init_widgets_list_secondary():
 
 # screens/bar
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_list(), size=40, opacity=0.6, margin=[10,10,15,10]), left=bar.Gap(25), right=bar.Gap(25), bottom=bar.Gap(25)),
-            Screen(top=bar.Bar(widgets=init_widgets_list_secondary(), size=40, opacity=0.6, margin=[10,10,15,10]), left=bar.Gap(25), right=bar.Gap(25), bottom=bar.Gap(25))]
+    return [Screen(top=bar.Bar(widgets=init_widgets_list(), size=40, opacity=1, margin=[10,10,8,10]), left=bar.Gap(3), right=bar.Gap(3), bottom=bar.Gap(10)),
+            Screen(top=bar.Bar(widgets=init_widgets_list_secondary(), size=40, opacity=1, margin=[10,10,8,10]), left=bar.Gap(3), right=bar.Gap(3), bottom=bar.Gap(10))]
 
 screens = init_screens()
 
@@ -535,13 +525,12 @@ def set_floating(window):
     if (window.window.get_wm_transient_for()
             or window.window.get_wm_type() in floating_types):
         window.floating = True
-
+    
 floating_types = ["notification", "toolbar", "splash", "dialog"]
-
 
 follow_mouse_focus = True
 bring_front_click = False
-cursor_warp = False
+cursor_warp = True
 # }}}
 # APP GROUP ASSIGNMENTS{{{
 @hook.subscribe.client_new
@@ -592,7 +581,7 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'Ulauncher'},
     {'wmclass': 'zoom'}
 ],  fullscreen_border_width = 0, border_width = 0)# }}}
-auto_fullscreen = True
+auto_fullscreen = False
 
 focus_on_window_activation = "focus" # or smart
 

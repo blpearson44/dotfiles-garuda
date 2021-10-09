@@ -5,6 +5,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
+Plug 'rbgrouleff/bclose.vim'
 " start screen
 Plug 'mhinz/vim-startify'
 " snippets
@@ -29,8 +30,9 @@ call plug#end()
 " Set leader to Space
 let mapleader = " "
 
-" Save as root
-cmap w!! %!sudo tee > /dev/null %
+" Set shell
+set shell=fish
+
 
 " theme
 colorscheme dracula
@@ -38,14 +40,14 @@ let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowTo
 
 " mappings
 nmap <C-n> :NERDTreeToggle<CR>
-nmap q :qa<CR>
+nmap <C-q> :qa<CR>
 let NERDTreeMapQuit=''
 " nav
-map <leader><leader> <C-W>w
-map <leader>h <C-W>h
-map <leader>j <C-W>j
-map <leader>k <C-W>k
-map <leader>l <C-W>l
+noremap <leader><leader> <C-W>w
+noremap <leader>h <C-W>h
+noremap <leader>j <C-W>j
+noremap <leader>k <C-W>k
+noremap <leader>l <C-W>l
 " tab nav
 noremap <leader>1 1gt
 noremap <leader>2 2gt
@@ -56,7 +58,8 @@ noremap <leader>6 6gt
 noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
-noremap <leader>tc :tabclose<CR>
+noremap <leader>n :tabnew<CR>
+noremap <leader>x :tabclose<CR>
 " Splits
 noremap <leader>wc <C-W>q
 noremap <leader>wv <C-W>v
@@ -65,8 +68,12 @@ noremap <leader>wt <C-W>T
 noremap <leader>w= <C-W>=
 
 " error nav
-nmap <silent> [e <Plug>(coc-diagnostic-prev)
-nmap <silent> e] <Plug>(coc-diagnostic-next)
+nmap <leader>e[ <Plug>(coc-diagnostic-prev)
+nmap <leader>e <Plug>(coc-diagnostic-next)
+
+" Startify Mappings
+noremap <C-S> :tabdo NERDTreeClose<CR> :SSave<CR>
+noremap <C-H> :NERDTreeClose<CR> :Startify<CR>
 
 " coc config
 let g:coc_global_extensions = [
@@ -95,31 +102,49 @@ let g:NERDTreeIgnore = ['^node_modules$']
 let g:NERDTreeHighlightCursorline=0
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeShowHidden=1
-" Start NERDTree when Vim is started without file arguments.
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+                \ 'Modified'  :'✹',
+                \ 'Staged'    :'✚',
+                \ 'Untracked' :'✭',
+                \ 'Renamed'   :'➜',
+                \ 'Unmerged'  :'═',
+                \ 'Deleted'   :'✖',
+                \ 'Dirty'     :'✗',
+                \ 'Ignored'   :'☒',
+                \ 'Clean'     :'✔︎',
+                \ 'Unknown'   :'?',
+                \ }
 " Exit Vim if NERDTree is the only window left.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
-" Open the existing NERDTree on each new tab.
-autocmd BufWinEnter * silent NERDTreeMirror
 
 " Startify
 let g:startify_bookmarks = ['~/.config/nvim/init.vim', '~/.config/fish/config.fish', '~/.config/qtile/config.py', '~/Projects/']
 let g:startify_session_dir = '~/.config/nvim/sessions'
 let g:startify_session_autload = 0
-let g:startify_session_persistence = 1
+let g:startify_session_persistence = 0
 let g:startify_lists =[
       \ { 'type': 'bookmarks',  'header': ['  Bookmarks']   },
       \ { 'type': 'sessions',   'header': ['  Sessions']    },
       \ { 'type': 'dir',      'header': ['  MRU '.getcwd()] },
       \ ] 
+let g:startify_session_before_save = [ 'silent! tabdo NERDTreeClose' ]
+let g:startify_change_to_vcs_root = 1
+let g:startify_fortune_use_unicode = 1
 
 " vim-airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tab_nr_type = 1
+let g:airline#extensions#bufferline#enabled = 0
+let g:airline#extensions#tabline#show_buffers = 0
 
+" vim-gitgutter
+let g:gitgutter_sign_added = '✚'
+let g:gitgutter_sign_modified = '✹'
+let g:gitgutter_sign_removed = '✖'
+let g:gitgutter_sign_removed_first_line = ''
+let g:gitgutter_sign_modified_removed = ''
 
 " vimtex
 let g:vimtex_view_method = 'zathura'
@@ -128,12 +153,16 @@ let g:vimtex_view_method = 'zathura'
 set mouse=nicr
 set mouse=a
 
+" More responsive signs on gitgutter
+set updatetime=250
+
+
 " from .vimrc
 " line numbers
 set nonumber
 set relativenumber
 set nocursorline
-set scrolloff=10
+set scrolloff=15
 
 " indents
 set autoindent

@@ -137,15 +137,7 @@ alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/p
 alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist" 
 alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist" 
 
-# Custom config aliases
-alias fix_display="xrandr --output DP-0 --primary --mode 2560x1440 --rate 144.0 --output HDMI-0  --mode 2560x1440 --rate 74.99 --left-of DP-0"
-alias vim="neovide --multigrid"
-alias Spiderverse="cd ~/Spiderverse/"
-alias w="feh --randomize --bg-fill ~/Pictures/wallpapers/dark"
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-
 # Help people new to Arch
-alias please='sudo'
 alias tb='nc termbin.com 9999'
 
 # Cleanup orphaned packages
@@ -156,6 +148,19 @@ alias jctl="journalctl -p 3 -xb"
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+
+#### CUSTOM ALIASES
+alias fix_display="xrandr --output DP-0 --primary --mode 2560x1440 --rate 144.0 --output HDMI-0  --mode 2560x1440 --rate 74.99 --left-of DP-0"
+alias vim="neovide"
+alias em="emacsclient -a '' -c"
+alias doom="~/.emacs.d/bin/doom"
+alias w="feh --randomize --bg-fill ~/Pictures/wallpapers/dark"
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+export SPI="/home/ben/Spiderverse"
+
+# Copy and move
+alias mv="mv -i"
+alias cp="cp -i"
 
 
 ## Run paleofetch if session is interactive
