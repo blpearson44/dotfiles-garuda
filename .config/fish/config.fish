@@ -95,7 +95,7 @@ function copy
     end
 end
 
-## Useful aliases
+#### GARUDA ALIASES
 # Replace ls with exa
 alias ls='exa -al --color=always --group-directories-first --icons' # preferred listing
 alias la='exa -a --color=always --group-directories-first --icons'  # all files and dirs
@@ -163,7 +163,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 
 
-## Run paleofetch if session is interactive
+#### Random color scripts
 if status --is-interactive
-   neofetch
+   colorscript random
 end
