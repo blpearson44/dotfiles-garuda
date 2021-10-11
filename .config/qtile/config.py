@@ -40,14 +40,12 @@ myTerm = "alacritty" # My terminal of choice
 keys = [
 # SUPER + FUNCTION KEYS
     Key([mod], "f", lazy.window.toggle_fullscreen()),
-    Key([mod], "m", lazy.spawn('pragha')),
     Key([mod], "w", lazy.window.kill()),
     Key([mod], "v", lazy.spawn('pavucontrol')),
     Key([mod], "d", lazy.spawn('nwggrid -p -o 0.4')),
     Key([mod], "Escape", lazy.spawn('xkill')),
     Key([mod], "Return", lazy.spawn('alacritty')),
     Key([mod], "KP_Enter", lazy.spawn('alacritty')),
-    Key([mod], "x", lazy.shutdown()),
     Key([mod], "space", lazy.spawn('ulauncher-toggle')),
     Key([mod, "mod1"], "l", lazy.spawn('betterlockscreen -l')),
 

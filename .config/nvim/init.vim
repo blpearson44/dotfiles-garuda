@@ -85,7 +85,8 @@ let g:coc_global_extensions = [
   \ 'coc-json', 
   \ 'coc-toml',
   \ 'coc-python',
-  \ 'coc-texlab'
+  \ 'coc-texlab',
+  \ 'coc-cl'
   \ ]
 
 
