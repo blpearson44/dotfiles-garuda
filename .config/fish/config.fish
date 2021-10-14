@@ -162,6 +162,8 @@ export SPI="/home/ben/Spiderverse"
 alias mv="mv -i"
 alias cp="cp -i"
 
+#### MAN ADD TO PATH
+export PATH="/home/ben/.emacs.d/bin:$PATH"
 
 #### Random color scripts
 if status --is-interactive
